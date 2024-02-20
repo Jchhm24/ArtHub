@@ -5,16 +5,14 @@ import { useGetForm } from "./hooks/userGetForm"
 import { getUser } from "./helpers/getUser"
 
 export const LoginModalComponent = ({opendModal, closeModal}) => {
-
+    
     const focusRef = useRef()
+    const focusRef2 = useRef()
 
     const [isMoved, setIsMoved] = useState(false)
 
-    const [mensaje, setmensaje] = useState(false)
-
-    const handleClick = (direction, mensaje) => {
+    const handleClick = (direction) => {
         setIsMoved(direction);
-        setmensaje(mensaje);
     };
 
     // Datos para enviar al usuario a la API
@@ -22,6 +20,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
         nombre: '',
         apellido: '',
         username: '',
+        
         fechaNacimiento: '',
         email: '',
         contrasena: '',
@@ -46,7 +45,6 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
         // Enviamos los datos a la API
         submitUser(formState, handleClick)
         .then(() => {
-            // Vaciamos el formulario después de enviar los datos
             resetForm();
         })
     }
@@ -57,7 +55,6 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
         console.log(formStateLogin)
         getUser(formStateLogin)
         .then(() => {
-            // Vaciamos el formulario después de enviar los datos
             resetForm2();
             closeModal()
         })
@@ -65,7 +62,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
 
     useEffect(() => {
         focusRef.current.focus()
-      }, [])
+    }, [])
 
   return (
     <>  
@@ -87,7 +84,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
                             Regresar
                         </button>
                         <button className="text-java-400 flex flex-row bg-blue-bayoux-900 rounded-[10px] px-[6px] py-1 outline-none"
-                            onClick={() => handleClick(true, true)}>
+                            onClick={() => handleClick(true)}>
                             Iniciar sesion
                             <svg className="fill-yellow-orange-300 rotate-180" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                                 <path d="M280-240q-17 0-28.5-11.5T240-280v-400q0-17 11.5-28.5T280-720q17 0 28.5 11.5T320-680v400q0 17-11.5 28.5T280-240Zm272-240 156 156q11 11 11 28t-11 28q-11 11-28 11t-28-11L468-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 28-11t28 11q11 11 11 28t-11 28L552-480Z"/>
@@ -121,7 +118,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
             <div className={`bg-pickled-bluewood-900 rounded-[20px] w-[555px] h-full absolute flex justify-center items-center z-10 ${isMoved ? '-translate-x-2/4 transition duration-500' : 'translate-x-2/4 transition duration-500'}`}>
                 <div className="flex flex-col items-center">
                     <h1 className="font-Red-Hat-Display font-bold text-5xl text-yellow-orange-300 px-[10px] pb-[6px] border-b-4 border-yellow-orange-300">
-                        {mensaje ? "¡Bienvenido!" : "¡Registrate!"}
+                        {isMoved ? "¡Bienvenido!" : "¡Registrate!"}
                     </h1>
                     <img className="w-[148px] h-[148px]" src="/img/Logo/logo.svg"/>
                 </div>
@@ -153,7 +150,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
                     </div>
                     {/* <!-- formulario de inciar sesion --> */}
                     <form className="flex flex-col gap-5 w-full" onSubmit={onGetUser}>
-                        <input type="text" className="input-login" placeholder="Usuario/Correo electronico..." name="correo" required value={correo} onChange={ChangeInput}/>
+                        <input ref={focusRef2}  type="text" className="input-login" placeholder="Usuario/Correo electronico..." name="correo" required value={correo} onChange={ChangeInput}/>
                         <input type="password" className="input-login" placeholder="Contraseña..." required name="password" value={password} onChange={ChangeInput}/>
                         {/* opciones del usuario */}
                         <div className="flex flex-col items-center justify-center gap-5 font-Red-Hat-Display text-yellow-orange-300">

@@ -7,4 +7,9 @@
         @apply font-Comfortaa text-white-300 bg-pickled-bluewood-800 border-[2px] border-red-damask-400 px-[6px] py-1 outline-none rounded-lg placeholder:text-white-300
         focus:bg-pickled-bluewood-950 focus:placeholder:text-blue-bayoux-500 focus:border-red-damask-500 focus:text-white-50;
    }
+
+   .card-imagen-publicacion{
+      @apply w-[245px] mb-5 rounded-[25px] cursor-pointer max-md:w-[175px];
+   }
+
 }

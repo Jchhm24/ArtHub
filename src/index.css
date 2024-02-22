@@ -12,4 +12,12 @@
       @apply w-[245px] mb-5 rounded-[25px] cursor-pointer max-md:w-[175px];
    }
 
+   .card-slider{
+      @apply min-w-31 h-[200px] rounded-[20px] inline-flex flex-col justify-end items-center cursor-pointer bg-cover bg-center bg-no-repeat;
+   }
+
+   .text-slider{
+      @apply font-Red-Hat-Display font-medium text-white-50 text-2xl text-center w-full py-0.5 
+         border-2 border-white-900/50 rounded-b-[20px] backdrop-blur-sm bg-black/50
+   }
 }

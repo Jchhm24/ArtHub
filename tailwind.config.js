@@ -82,6 +82,19 @@ export default {
           '950': '#292929',
         },      
       },
+
+      backgroundImage:{
+        'Clasico':"url('../img/slider/Clasico.png')",
+        'Fantasia': "url('../img/slider/Fantasia.png')",
+        'Cartoon': "url('../img/slider/Cartoon.png')",
+        'Paisajes': "url('../img/slider/Paisajes.png')",
+        'Fan-Art': "url('../img/slider/FanArt.png')",
+        'Ciencia-Ficcion': "url('../img/slider/CienciaFiccion.png')",
+      },
+
+      minWidth: {
+        '31': '31%',  // Añade un ancho mínimo del 35%
+      },
     },
   },
   plugins:[]

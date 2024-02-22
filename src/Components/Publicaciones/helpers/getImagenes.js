@@ -1,4 +1,4 @@
-export const getImagenes = async (ids) => {
+export const getImagenes = async (ids, searchTerm) => {
     const response = await fetch('https://www.arthub.somee.com/api/Publicacion/')
     let data = await response.json()
 
@@ -10,6 +10,12 @@ export const getImagenes = async (ids) => {
         });
     }
 
+    // Buscar las imagenes por medio de sus titulos
+    if (searchTerm) {
+        data = data.filter(imagen => imagen.titulo.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    // Desordena las imagenes para dar el efecto random
     for (let i = data.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [data[i], data[j]] = [data[j], data[i]];

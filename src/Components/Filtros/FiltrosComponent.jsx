@@ -1,10 +1,7 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { ListCategorias } from "./ListCategorias"
-import { CheckboxContext } from "./CheckboxContext"
 
-export const FiltrosComponent = () => {
-
-    const { activeCheckboxes, setActiveCheckboxes } = useContext(CheckboxContext)
+export const FiltrosComponent = ({activeCheckboxes, setActiveCheckboxes}) => {
     const [count, setCount] = useState(0)
 
     const handleCheckboxChange = (event) => {

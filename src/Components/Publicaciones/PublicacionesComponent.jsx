@@ -1,12 +1,8 @@
 // import { Carousel } from "../Carousel/Carousel"
-import { useContext } from "react"
 import { useImagenes } from "./hooks/useImagenes"
-import { CheckboxContext } from "../Filtros/CheckboxContext"
 
-export const PublicacionesComponent = () => {
-
-    const{activeCheckboxes}= useContext(CheckboxContext)
-    const imagenes = useImagenes(activeCheckboxes)
+export const PublicacionesComponent = ({activeCheckboxes, searchTerm}) => {
+    const imagenes = useImagenes(activeCheckboxes, searchTerm)
 
     return (
         <>  

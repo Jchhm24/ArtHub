@@ -12,28 +12,21 @@ export const NavComponent = ({searchTerm, setSearchTerm}) => {
 
   return (
     <>
-        <nav className="bg-pickled-bluewood-900 font-Comfortaa font-medium text-yellow-orange-300 flex flex-row gap-4 justify-center items-center">
+        <nav className=" font-Comfortaa font-medium text-yellow-orange-300 flex flex-row gap-4 justify-center items-center">
             <img src="img/Logo/logo.svg" className="w-[60px] h-[60px]"/>
-    
-            {/* Secciín de las categorias */}
-            <div>
-                <svg className="fill-yellow-orange-300 w-[27px]" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path d="M710-150q-63 0-106.5-43.5T560-300q0-63 43.5-106.5T710-450q63 0 106.5 43.5T860-300q0 63-43.5 106.5T710-150Zm0-80q29 0 49.5-20.5T780-300q0-29-20.5-49.5T710-370q-29 0-49.5 20.5T640-300q0 29 20.5 49.5T710-230Zm-270-30H200q-17 0-28.5-11.5T160-300q0-17 11.5-28.5T200-340h240q17 0 28.5 11.5T480-300q0 17-11.5 28.5T440-260ZM250-510q-63 0-106.5-43.5T100-660q0-63 43.5-106.5T250-810q63 0 106.5 43.5T400-660q0 63-43.5 106.5T250-510Zm0-80q29 0 49.5-20.5T320-660q0-29-20.5-49.5T250-730q-29 0-49.5 20.5T180-660q0 29 20.5 49.5T250-590Zm510-30H520q-17 0-28.5-11.5T480-660q0-17 11.5-28.5T520-700h240q17 0 28.5 11.5T800-660q0 17-11.5 28.5T760-620Zm-50 320ZM250-660Z"/>
-                </svg>
-            </div>
     
             {/* Barra de busqueda */}
             <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     
             {/* Sección de los botones de navegación el nav */}
             <div className="flex flex-row">
-                <button className="flex flex-row items-center bg-yellow-orange-300 text-pickled-bluewood-900 px-2 py-1 rounded-[15px] outline-none">
-                    <svg className="fill-pickled-bluewood-900 w-[27px]"  xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <button className="flex flex-row items-center bg-yellow-orange-300 text-vulcan-950 px-2 py-1 rounded-lg outline-none">
+                    <svg className="fill-vulcan-950 w-[27px]"  xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                         <path d="M240-200h120v-200q0-17 11.5-28.5T400-440h160q17 0 28.5 11.5T600-400v200h120v-360L480-740 240-560v360Zm-80 0v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H560q-17 0-28.5-11.5T520-160v-200h-80v200q0 17-11.5 28.5T400-120H240q-33 0-56.5-23.5T160-200Zm320-270Z"/>
                     </svg>
                     Inicio
                 </button>
-                <button className="flex flex-row items-center px-2 py-1 rounded-[15px] outline-none peer">
+                <button className="flex flex-row items-center px-2 py-1 rounded-lg outline-none peer">
                     <svg className="fill-yellow-orange-300 w-[27px]" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                         <path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h440q17 0 28.5 11.5T760-320q0 17-11.5 28.5T720-280H280q-45 0-68-39.5t-2-78.5l54-98-144-304H80q-17 0-28.5-11.5T40-840q0-17 11.5-28.5T80-880h65q11 0 21 6t15 17l27 57Zm134 280h280-280Z"/>
                     </svg>

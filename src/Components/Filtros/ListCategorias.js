@@ -7,15 +7,15 @@ export const ListCategorias = [
         id:2, categoria:'Clasico', 
     },
     {
-        id:3, categoria:'Ciencia Ficción'
+        id:3, categoria:'Ciencia ficción'
     },
     {
-        id:4, categoria:'Fan Art'
+        id:4, categoria:'Fan art'
     },
     {
         id:5, categoria:'Fantasía'
     },
     {
-        id:6, categoria:'Paisajes'
+        id:6, categoria:'Paisaje'
     }
 ]

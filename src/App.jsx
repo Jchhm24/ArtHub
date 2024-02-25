@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { FiltrosComponent } from "./Components/Filtros/FiltrosComponent"
 import { NavComponent } from "./Components/Nav/NavComponent"
-import { PublicacionesComponent } from "./Components/Publicaciones/PublicacionesComponent"
+import { InicioComponent } from "./Components/Inicio/InicioComponent";
 
 export const App = () => {
   const [activeCheckboxes, setActiveCheckboxes] = useState([]);
@@ -10,8 +9,7 @@ export const App = () => {
   return (
     <>
       <NavComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <FiltrosComponent activeCheckboxes={activeCheckboxes} setActiveCheckboxes={setActiveCheckboxes} />
-      <PublicacionesComponent activeCheckboxes={activeCheckboxes} searchTerm={searchTerm} />
+      <InicioComponent activeCheckboxes={activeCheckboxes} setActiveCheckboxes={setActiveCheckboxes} searchTerm={searchTerm} />
     </>
   );
 }

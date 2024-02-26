@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LoginModalComponent } from "../LoginModal/LoginModalComponent"
 import { SearchComponent } from "../Search/SearchComponent"
+import { CuentaDropwnComponent } from "../CuentaDropdown/CuentaDropwnComponent"
 
 export const NavComponent = ({searchTerm, setSearchTerm}) => {
 
@@ -9,9 +10,18 @@ export const NavComponent = ({searchTerm, setSearchTerm}) => {
     const stateModal=(state)=>{
         setOpenModal(state)
     }
+    // Para el dropdown de la cuenta
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    useEffect(() => {
+        const userData = localStorage.getItem('userData');
+        if (userData) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
   return (
-    <>
+    <>  
         <nav className=" font-Comfortaa font-medium text-yellow-orange-300 flex flex-row gap-4 justify-center items-center">
             <img src="img/Logo/logo.svg" className="w-[60px] h-[60px]"/>
     
@@ -33,19 +43,21 @@ export const NavComponent = ({searchTerm, setSearchTerm}) => {
                     Carrito
                 </button>
             </div>
-    
-            <div className="flex flex-row">
-                <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
-                    Registrarse
-                </button>
-                <span className="bg-yellow-orange-300 max-h w-[2px] rounded-full"></span>
-                <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
-                    Iniciar sesión
-                </button>
-            </div>
+
+            {isLoggedIn ? <CuentaDropwnComponent />
+                        :<div className="flex flex-row">
+                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
+                                Registrarse
+                            </button>
+                            <span className="bg-yellow-orange-300 max-h w-[2px] rounded-full"></span>
+                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
+                                Iniciar sesión
+                            </button>
+                        </div>
+            }
         </nav>
 
-        {openModal && <LoginModalComponent opendModal={openModal} closeModal={() => stateModal(false)}/>}
+        {openModal && <LoginModalComponent opendModal={openModal} closeModal={() => stateModal(false)} setIsLoggedIn={setIsLoggedIn}/>}
    </>
   )
 }

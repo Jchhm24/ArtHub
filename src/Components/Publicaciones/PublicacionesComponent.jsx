@@ -2,6 +2,7 @@
 import { useImagenes } from "./hooks/useImagenes"
 
 export const PublicacionesComponent = ({activeCheckboxes, searchTerm}) => {
+    
     const imagenes = useImagenes(activeCheckboxes, searchTerm)
 
     return (

@@ -4,7 +4,7 @@ import { submitUser } from "./helpers/submitUser"
 import { useGetForm } from "./hooks/userGetForm"
 import { getUser } from "./helpers/getUser"
 
-export const LoginModalComponent = ({opendModal, closeModal}) => {
+export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => {
     
     const focusRef = useRef()
     const focusRef2 = useRef()
@@ -47,17 +47,24 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
         .then(() => {
             resetForm();
         })
+    }    
+
+    const onGetUser = async (event) => {
+        event.preventDefault();
+        console.log(formStateLogin);
+
+        const isLoggedIn = await getUser(formStateLogin);
+
+        if (isLoggedIn) {
+            resetForm2();
+            closeModal();
+            drop(true);
+            setIsLoggedIn(true);
+        }
     }
 
-    const onGetUser = (event) => {
-        event.preventDefault()
-        // Enviamos los datos a la API
-        console.log(formStateLogin)
-        getUser(formStateLogin)
-        .then(() => {
-            resetForm2();
-            closeModal()
-        })
+    const drop = (x) =>{
+        return x
     }
 
     useEffect(() => {
@@ -170,7 +177,7 @@ export const LoginModalComponent = ({opendModal, closeModal}) => {
                         <div className="flex justify-center">
                             <button type="submit" className="font-Comfortaa text-vulan-950 bg-yellow-orange-300 px-[6px] py-1 rounded-[10px]
                                 hover:text-vulcan-900 hover:bg-gold-sand-300  transition-all duration-500">
-                                ¡Registrarse!
+                                ¡Iniciar sesion!
                             </button>
                         </div>
                     </form>

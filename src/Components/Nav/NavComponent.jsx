@@ -3,7 +3,7 @@ import { LoginModalComponent } from "../LoginModal/LoginModalComponent"
 import { SearchComponent } from "../Search/SearchComponent"
 import { CuentaDropwnComponent } from "../CuentaDropdown/CuentaDropwnComponent"
 
-export const NavComponent = ({searchTerm, setSearchTerm}) => {
+export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
 
     const [openModal, setOpenModal] = useState(false)
 
@@ -30,7 +30,7 @@ export const NavComponent = ({searchTerm, setSearchTerm}) => {
     
             {/* Sección de los botones de navegación el nav */}
             <div className="flex flex-row">
-                <button className="flex flex-row items-center bg-yellow-orange-300 text-vulcan-950 px-2 py-1 rounded-lg outline-none">
+                <button onClick={() => changePage('inicio')} className="flex flex-row items-center bg-yellow-orange-300 text-vulcan-950 px-2 py-1 rounded-lg outline-none">
                     <svg className="fill-vulcan-950 w-[27px]"  xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                         <path d="M240-200h120v-200q0-17 11.5-28.5T400-440h160q17 0 28.5 11.5T600-400v200h120v-360L480-740 240-560v360Zm-80 0v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H560q-17 0-28.5-11.5T520-160v-200h-80v200q0 17-11.5 28.5T400-120H240q-33 0-56.5-23.5T160-200Zm320-270Z"/>
                     </svg>
@@ -44,7 +44,16 @@ export const NavComponent = ({searchTerm, setSearchTerm}) => {
                 </button>
             </div>
 
-            {isLoggedIn ? <CuentaDropwnComponent />
+            {isLoggedIn ? 
+                        <>
+                            <button onClick={() => changePage('publicar')} type="button" 
+                            className="flex flex-row-reverse bg-yellow-orange-300 text-vulcan-950 rounded-lg py-1 px-2
+                            hover:bg-vulcan-900 hover:text-yellow-orange-200">
+                                <p id="eco"  className="relative peer">Publicar</p>
+                                <svg htmlFor="seco" className=" fill-vulcan-950 peer-hover:fill-yellow-orange-200" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120Zm-40-160H240v60h480v-60Zm-480-60h480v-60H240v60Zm0-140h480v-240H240v240Zm0 200v60-60Zm0-60v-60 60Zm0-140v-240 240Zm0 80v-80 80Zm0 120v-60 60Z"/></svg>
+                            </button>
+                            <CuentaDropwnComponent />
+                        </>
                         :<div className="flex flex-row">
                             <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
                                 Registrarse

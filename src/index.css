@@ -20,4 +20,8 @@
       @apply font-Red-Hat-Display font-medium text-white-50 text-2xl text-center w-full py-0.5 
          border-2 border-white-900/50 rounded-b-[20px] backdrop-blur-sm bg-black/50
    }
+
+   .select-option{
+      @apply w-[100px] md:w-[170px] px-2 py-1 text-yellow-orange-200 bg-inherit rounded-lg border-2 border-gold-sand-500 outline-none cursor-pointer
+   }
 }

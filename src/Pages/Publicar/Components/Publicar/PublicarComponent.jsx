@@ -63,8 +63,7 @@ export const PublicarComponent = ({changePage}) => {
     if(acceptedFiles[0] && categoriasSeleccionadas.length > 0){
       const categoriasString = categoriasSeleccionadas.join(', ')
     
-      const imagenSeleccionada = URL.createObjectURL(acceptedFiles[0])
-            const finalFormState = {
+        const finalFormState = {
         ...formState,
         archivo: base64Image,
         categoria: categoriasString

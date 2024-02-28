@@ -10,11 +10,13 @@ export const PublicarComponent = ({changePage}) => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      console.log(reader.result); // Aquí está la imagen en base64
+      setBase64Image(reader.result); // Guarda la imagen en base64 en el estado
     };
 
     reader.readAsDataURL(file);
   }, []);
+
+  const [base64Image, setBase64Image] = useState(null); // Nuevo estado para la imagen en base64
   
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop})
 
@@ -64,7 +66,7 @@ export const PublicarComponent = ({changePage}) => {
       const imagenSeleccionada = URL.createObjectURL(acceptedFiles[0])
             const finalFormState = {
         ...formState,
-        archivo: imagenSeleccionada,
+        archivo: base64Image,
         categoria: categoriasString
       }
     

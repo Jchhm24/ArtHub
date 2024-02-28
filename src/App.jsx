@@ -28,7 +28,7 @@ export const App = () => {
  
       {
         page === 'inicio' && <InicioPage activeCheckboxes={activeCheckboxes} setActiveCheckboxes={setActiveCheckboxes} searchTerm={searchTerm} changePage={changePage} getImgId={getImgId}/>
-        || page ===  'publicar' && <PublicarPage/>
+        || page ===  'publicar' && <PublicarPage changePage={changePage}/>
         || page === 'preview' && <PreviewPage id={idPublicacion} changePage={changePage}/>
       }
 

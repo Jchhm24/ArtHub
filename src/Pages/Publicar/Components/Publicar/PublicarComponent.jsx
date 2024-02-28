@@ -1,14 +1,21 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import {useDropzone} from 'react-dropzone'
 import { ListCategorias } from "../../../../Components/Filtros/ListCategorias"
 import { useForm } from "../../hooks/useForm"
 
-export const PublicarComponent = () => {
+export const PublicarComponent = ({changePage}) => {
     
   const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles[0])
-    // Do something with the files
-  }, [])
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      console.log(reader.result); // Aquí está la imagen en base64
+    };
+
+    reader.readAsDataURL(file);
+  }, []);
+  
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop})
 
   // Para saber los checks que se seleccionaron
@@ -27,6 +34,10 @@ export const PublicarComponent = () => {
     })
   }
 
+  useEffect(() => {
+    ref.current.focus()
+}, [])
+
   const user = JSON.parse(localStorage.getItem('userData'))
 
   const categoriasSeleccionadas = Object.keys(categorias).filter( categoria => categorias[categoria])
@@ -42,7 +53,7 @@ export const PublicarComponent = () => {
     "categoria":''
   }
 
-  const {formState, onInputChange, resetForm, setFormState} = useForm(publicForm)
+  const {formState, onInputChange, resetForm} = useForm(publicForm)
   const {idArtista, titulo, descripcion, precio, archivo, categoria} = formState
 
   const handleSubmit = async (e) =>{
@@ -51,9 +62,7 @@ export const PublicarComponent = () => {
       const categoriasString = categoriasSeleccionadas.join(', ')
     
       const imagenSeleccionada = URL.createObjectURL(acceptedFiles[0])
-      
-      // el finnalFormState es el que envia por que tiene todos los valores actualizados
-      const finalFormState = {
+            const finalFormState = {
         ...formState,
         archivo: imagenSeleccionada,
         categoria: categoriasString
@@ -73,6 +82,8 @@ export const PublicarComponent = () => {
       .then(response => response.json())
       .then(() => {
         alert('Publicado de exitosamente')
+        resetForm()
+        changePage('inicio')
       })
       .catch(error =>{
         console.log(error)
@@ -87,30 +98,16 @@ export const PublicarComponent = () => {
         alert('No se ha seleccionado ninguna categoría')
       }
     }
-
-    
-    // Para imprimir los inputs
-    // console.log(e.target[0].value)
-    // const formData = new FormData()
-    // // acceptedFiles[0] es el archivo que se sube
-    // formData.append('file', acceptedFiles[0])
-    // formData.append('upload_preset', 'nknlekpv')
-    // formData.append('api_key', '849172955868522')
-
-    // const response=await fetch('https://api.cloudinary.com/v1_1/dz80wwxng/image/upload',{
-    //   method: 'POST',
-    //   body: formData
-    // })
-    // const data= await response.json()
-    // console.log(data)
   }
+
+  const ref = useRef()
 
   return (
     <form onSubmit={handleSubmit} className="mx-[60px] gap-[60px] mt-[30px] flex flex-row items-center place-content-around text-xl">
       {/* Formulario de inputs */}
       <section className="bg-nile-blue-950 flex flex-col gap-5 p-[30px] rounded-xl w-min">
         <input type="text" name="titulo" placeholder="Titulo" className="input-login w-max"
-          value={titulo} onChange={onInputChange} required/>
+          value={titulo} onChange={onInputChange} required ref={ref}/>
         
         <div className="flex flex-col">
           <textarea cols="30" rows="10" name="descripcion" value={descripcion} onChange={onInputChange} required

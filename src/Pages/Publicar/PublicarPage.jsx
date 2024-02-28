@@ -1,9 +1,9 @@
 import { PublicarComponent } from "./Components/Publicar/PublicarComponent"
 
-export const PublicarPage = () => {
+export const PublicarPage = ({changePage}) => {
   return (
     <>
-        <PublicarComponent />
+        <PublicarComponent changePage={changePage}/>
     </>
   )
 }

@@ -24,4 +24,12 @@
    .select-option{
       @apply w-[100px] md:w-[170px] px-2 py-1 text-yellow-orange-200 bg-inherit rounded-lg border-2 border-gold-sand-500 outline-none cursor-pointer
    }
+
+   .SlideBar-button{
+      @apply  flex flex-row justify-center items-center gap-1 p-2 text-yellow-orange-300 hover:text-yellow-orange-400 bg-nile-blue-700 hover:bg-nile-blue-800 fill-yellow-orange-300 hover:fill-yellow-orange-400 rounded-lg
+   }
+
+   .SlideBar-button-active{
+      @apply  flex flex-row justify-center items-center gap-1 p-2 text-yellow-orange-300 bg-nile-blue-900 fill-yellow-orange-400 rounded-lg
+   }
 }

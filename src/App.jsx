@@ -3,6 +3,7 @@ import { NavComponent } from "./Components/Nav/NavComponent"
 import { InicioPage } from "./Pages/Inicio/InicioPage";
 import { PublicarPage } from "./Pages/Publicar/PublicarPage";
 import { PreviewPage } from "./Pages/PublicacionPreview/PreviewPage";
+import { PerfilPage } from "./Pages/Perfil/PerfilPage";
 
 export const App = () => {
   const [activeCheckboxes, setActiveCheckboxes] = useState([]);
@@ -30,6 +31,7 @@ export const App = () => {
         page === 'inicio' && <InicioPage activeCheckboxes={activeCheckboxes} setActiveCheckboxes={setActiveCheckboxes} searchTerm={searchTerm} changePage={changePage} getImgId={getImgId}/>
         || page ===  'publicar' && <PublicarPage changePage={changePage}/>
         || page === 'preview' && <PreviewPage id={idPublicacion} changePage={changePage}/>
+        || page === 'perfil' && <PerfilPage/>
       }
 
 

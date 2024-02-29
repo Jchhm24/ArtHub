@@ -1,4 +1,4 @@
-export const CuentaDropwnComponent = () => {
+export const CuentaDropwnComponent = ({changePage}) => {
 
     const exit = () => {
         localStorage.removeItem('userData')
@@ -23,10 +23,10 @@ export const CuentaDropwnComponent = () => {
               <svg className="fill-vulcan-900 w-[30px] h-[30px] rotate-180" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-362q-8 0-15-2.5t-13-8.5L268-557q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-373q-6 6-13 8.5t-15 2.5Z"/></svg>
           </label>
 
-          <div className="hidden absolute flex-col items-center gap-0 -translate-x-6 peer-checked:flex">
+          <div className="hidden z-10 absolute flex-col items-center gap-0 -translate-x-6 peer-checked:flex">
               <div className="rotate-[225deg] w-0 h-0 border-solid border-l-8 border-t-8 border-r-8 border-b-0 border-transparent border-b-transparent border-r-vulcan-900 translate-y-2"></div>
               <div className="bg-vulcan-900 rounded-lg">
-                  <button className="flex flex-row p-[6px] gap-1 cursor-pointer hover:text-gold-sand-300">
+                  <button onClick={() => changePage('perfil')} className="flex flex-row p-[6px] gap-1 cursor-pointer hover:text-gold-sand-300">
                       <svg className="fill-yellow-orange-300" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Z"/></svg>
                       <p>Perfil</p>
                   </button>

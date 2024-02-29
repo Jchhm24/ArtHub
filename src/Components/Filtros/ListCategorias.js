@@ -10,7 +10,7 @@ export const ListCategorias = [
         id:3, categoria:'Ciencia ficción'
     },
     {
-        id:4, categoria:'Fan art'
+        id:4, categoria:'Fan Art'
     },
     {
         id:5, categoria:'Fantasía'

@@ -1,3 +1,5 @@
+import { getUpdateUser } from "./getUser";
+
 export const putUser = async (id, updateUser) => {
     fetch(`https://arthub.somee.com/api/Registro_Usuario/${id}`, {
     method: 'PUT',
@@ -9,6 +11,8 @@ export const putUser = async (id, updateUser) => {
   .then(res => {
     if(res.ok){
         alert('Tus datos han sido actualizados')
+        localStorage.removeItem('userData');
+        getUpdateUser(id)
     }else{
         alert('Error al actualizar los datos')
     }

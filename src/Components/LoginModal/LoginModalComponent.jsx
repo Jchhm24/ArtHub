@@ -17,6 +17,7 @@ export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => 
 
     // Datos para enviar al usuario a la API
     const initialForm = {
+        fotoPerfil:'',
         nombre: '',
         apellido: '',
         username: '',
@@ -28,7 +29,7 @@ export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => 
     }
 
     const initialFormLogin = {
-        correo: '',
+        correoUsername: '',
         password: ''
     }
 
@@ -38,7 +39,7 @@ export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => 
 
     // Para el formulario de iniciar sesión
     const {formStateLogin, ChangeInput, resetForm2} = useGetForm(initialFormLogin)
-    const {correo, password} = formStateLogin
+    const {correoUsername, password} = formStateLogin
 
     const onSubmitUser =(event)=>{
         event.preventDefault()
@@ -157,7 +158,7 @@ export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => 
                     </div>
                     {/* <!-- formulario de inciar sesion --> */}
                     <form className="flex flex-col gap-5 w-full" onSubmit={onGetUser}>
-                        <input ref={focusRef2}  type="text" className="input-login" placeholder="Usuario/Correo electronico..." name="correo" required value={correo} onChange={ChangeInput}/>
+                        <input ref={focusRef2}  type="text" className="input-login" placeholder="Usuario/Correo electronico..." name="correoUsername" required value={correoUsername} onChange={ChangeInput}/>
                         <input type="password" className="input-login" placeholder="Contraseña..." required name="password" value={password} onChange={ChangeInput}/>
                         {/* opciones del usuario */}
                         <div className="flex flex-col items-center justify-center gap-5 font-Red-Hat-Display text-yellow-orange-300">

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePublicacion } from "../hook/usePublicacion"
 
 export const PreviewComponent = ({id, changePage}) => {
@@ -6,6 +6,9 @@ export const PreviewComponent = ({id, changePage}) => {
     const Id = id
 
     const publicacion = usePublicacion(Id)
+
+    const userData = localStorage.getItem('userData');
+    const parseUserData = JSON.parse(userData);
 
     const [count, setcount] = useState(1)
 
@@ -33,8 +36,42 @@ export const PreviewComponent = ({id, changePage}) => {
     const [filter, setFilter] = useState('');
     
     const handleFilterChange = (event) => {
-      setFilter(event.target.value);
+      setFilter(event.target.value)
     }
+
+    //Para agregar al carrito
+    const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || [])
+    const [idCarrito, setIdCarrito] = useState(Number(localStorage.getItem('idCarrito')) || 0)
+
+    const addCarrito = () =>{
+      let nuevoItem = {
+        id: idCarrito,
+        userId: parseUserData.idUsuario,
+        titulo: publicacion.titulo,
+        idPublicacion: id,
+        imagen: publicacion.archivo,
+        precio: publicacion.precio,
+        cantidad: count,
+        tamaño: tamaño,
+        filtro: filter,
+      }
+      setCarrito(carritoAnterior => [... carritoAnterior, nuevoItem])
+      setIdCarrito(idCarrito + 1)
+    }
+    // para actualizar el carrito
+    useEffect(() => {
+      localStorage.setItem('carrito', JSON.stringify(carrito))
+      localStorage.setItem('idCarrito', idCarrito)
+      console.table(carrito)
+    }, [carrito, idCarrito, count])
+
+    const deleteC = () => {
+      localStorage.removeItem('carrito');
+      localStorage.removeItem('idCarrito');
+      setCarrito([])
+      setIdCarrito(0)
+    }
+    
 
     return (
       <div className=" mt-7 relative w-full flex flex-row place-content-around text-yellow-orange-300
@@ -148,9 +185,9 @@ export const PreviewComponent = ({id, changePage}) => {
                       <svg className="fill-yellow-orange-200" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/></svg>
                     </button>
 
-                      <label className="border-y-2 border-y-gold-sand-500 w-[50px] text-center">
+                      <span className="border-y-2 border-y-gold-sand-500 w-[50px] text-center">
                         {count}
-                      </label>
+                      </span>
 
                     <button onClick={() => counter(false)} className={`rounded-r-lg border-2 ${count > 1 ? 'bg-gold-sand-500 border-gold-sand-500' : 'border-gold-sand-700' }`}>
                       {/* Menos <<<<< */}
@@ -160,10 +197,22 @@ export const PreviewComponent = ({id, changePage}) => {
                     </button>
                   </div>
                 </div>
-                 <button className="p-1 font-Comfortaa font-medium flex rounded-lg bg-yellow-orange-300 hover:bg-yellow-orange-400 text-vulcan-950">
-                 <svg className="fill-vulcan-950" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M440-720h-80q-17 0-28.5-11.5T320-760q0-17 11.5-28.5T360-800h80v-80q0-17 11.5-28.5T480-920q17 0 28.5 11.5T520-880v80h80q17 0 28.5 11.5T640-760q0 17-11.5 28.5T600-720h-80v80q0 17-11.5 28.5T480-600q-17 0-28.5-11.5T440-640v-80ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM120-800H80q-17 0-28.5-11.5T40-840q0-17 11.5-28.5T80-880h66q11 0 21 6t15 17l159 337h280l145-260q5-10 14-15t20-5q23 0 34.5 19.5t.5 39.5L692-482q-11 20-29.5 31T622-440H324l-44 80h440q17 0 28.5 11.5T760-320q0 17-11.5 28.5T720-280H280q-45 0-68.5-39t-1.5-79l54-98-144-304Z"/></svg>
-                    Agregar 
-                 </button>
+                {/* Si el nombre del artista es igual al de usuario el botom de agregar no se mostrara */}
+                {parseUserData.username === publicacion.nombreArtista 
+                  ?<button className="p-1 font-Comfortaa font-medium flex rounded-lg bg-yellow-orange-300 hover:bg-yellow-orange-400 text-vulcan-950">
+                      <svg className="fill-vulcan-950" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M167-120q-21 5-36.5-10.5T120-167l40-191 198 198-191 40Zm191-40L160-358l458-458q23-23 57-23t57 23l84 84q23 23 23 57t-23 57L358-160Zm317-600L261-346l85 85 414-414-85-85Z"/></svg>
+                      Editar
+                  </button>
+                    // Si no es igual se mostrara el boton de agregar
+                  :<button onClick={addCarrito} className="p-1 font-Comfortaa font-medium flex rounded-lg bg-yellow-orange-300 hover:bg-yellow-orange-400 text-vulcan-950">
+                     <svg className="fill-vulcan-950" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M440-720h-80q-17 0-28.5-11.5T320-760q0-17 11.5-28.5T360-800h80v-80q0-17 11.5-28.5T480-920q17 0 28.5 11.5T520-880v80h80q17 0 28.5 11.5T640-760q0 17-11.5 28.5T600-720h-80v80q0 17-11.5 28.5T480-600q-17 0-28.5-11.5T440-640v-80ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM120-800H80q-17 0-28.5-11.5T40-840q0-17 11.5-28.5T80-880h66q11 0 21 6t15 17l159 337h280l145-260q5-10 14-15t20-5q23 0 34.5 19.5t.5 39.5L692-482q-11 20-29.5 31T622-440H324l-44 80h440q17 0 28.5 11.5T760-320q0 17-11.5 28.5T720-280H280q-45 0-68.5-39t-1.5-79l54-98-144-304Z"/></svg>
+                     Agregar 
+                  </button>
+                }
+                {/* Quitar cuando se terminen los texteos */}
+                <button onClick={deleteC}>
+                  eliminar
+                </button>
             </div>
           </section>
 

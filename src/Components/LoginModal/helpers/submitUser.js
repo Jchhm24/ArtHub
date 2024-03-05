@@ -1,5 +1,5 @@
 export const submitUser = async(user, handleClick)=>{
-    fetch('https://arthub.somee.com/api/Registro_Usuario',{
+    fetch('https://arthub.somee.com/api/Registro',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

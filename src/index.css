@@ -32,4 +32,20 @@
    .SlideBar-button-active{
       @apply  flex flex-row justify-center items-center gap-1 p-2 text-yellow-orange-300 bg-nile-blue-900 fill-yellow-orange-400 rounded-lg font-Comfortaa
    } 
+
+   .nav-section-active{
+       @apply flex flex-row font-Comfortaa fill-vulcan-950 bg-yellow-orange-300 text-vulcan-950 rounded-lg py-1 px-2 outline-none w-max
+   }
+
+   .nav-section{
+      @apply flex flex-row font-Comfortaa fill-yellow-orange-300 hover:fill-yellow-orange-200 text-yellow-orange-300 hover:text-yellow-orange-200 rounded-lg hover:bg-vulcan-900 py-1 px-2 outline-none w-max
+   }
+
+   .hr-card{
+      @apply bg-yellow-orange-300 w-1 rounded-full h-full  max-md:w-full max-md:h-1
+   }
+
+   .button-card-carrito{
+      @apply p-2 rounded-lg bg-nile-blue-700 fill-yellow-orange-300 hover:fill-yellow-orange-400 hover:bg-nile-blue-800 cursor-pointer 
+   }
 }

@@ -32,7 +32,7 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
   return (
     <>  
         <nav className=" font-Comfortaa font-medium text-yellow-orange-300 flex flex-row gap-4 justify-center items-center">
-            <img src="img/Logo/logo.svg" className="w-[60px] h-[60px]"/>
+            <img src="img/Logo/logo.svg" className="w-[60px] h-[60px]"></img>
     
             {/* Barra de busqueda */}
             <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

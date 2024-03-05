@@ -2,21 +2,21 @@ import { useEffect, useState } from "react"
 
 export const PanelUserComponent = ({changeSection}) => {
 
-        
     const [username, setUsername] = useState(JSON.parse(localStorage.getItem('userData')).username)
+    const [fotoPerfil, setFotoPerfil] = useState("img/Perfil/perfil-user-1.jpeg") // Set the default profile picture link here
 
     useEffect(() => {
       const userData = JSON.parse(localStorage.getItem('userData'))
       setUsername(userData.username)
+      setFotoPerfil(userData.fotoPerfil) // Set the profile picture link from the user data
     }, [])
-    
 
     return (
       <div className="w-full flex justify-center my-[30px]">
           <div className="bg-nile-blue-950 flex flex-row p-5 rounded-[14px] gap-[120px] w-max">
               <div className="flex flex-row items-start">
                   <div className=" relative h-[140px] w-[140px]">
-                      <img src="img/Perfil/perfil-user-1.jpeg" alt="" 
+                      <img src={fotoPerfil} alt="" 
                       className="w-full h-full rounded-[14px]"/>
                   </div>
                   <div className="flex flex-row p-[18px]">
@@ -26,7 +26,7 @@ export const PanelUserComponent = ({changeSection}) => {
                       </h2>
                   </div>
               </div>
-    
+
               <button onClick={() => changeSection('editar')} className="flex flex-row rounded-lg bg-yellow-orange-300 h-min p-2 
                   text-vulcan-950 font-Comfortaa font-medium text-base hover:bg-yellow-orange-400">
                   <svg className="fill-vulcan-950" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M167-120q-21 5-36.5-10.5T120-167l40-191 198 198-191 40Zm191-40L160-358l458-458q23-23 57-23t57 23l84 84q23 23 23 57t-23 57L358-160Zm317-600L261-346l85 85 414-414-85-85Z"/></svg>

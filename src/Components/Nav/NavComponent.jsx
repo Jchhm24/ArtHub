@@ -32,9 +32,8 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
   return (
     <>  
         <nav className=" font-Comfortaa font-medium text-yellow-orange-300 flex flex-row gap-4 justify-center items-center">
-            <button onClick={() => sectionChange(true,'inicio')}>
-                <img src="img/Logo/logo.svg" className="w-[60px] h-[60px]"/>
-            </button>
+            <img src="img/Logo/logo.svg" className="w-[60px] h-[60px] cursor-pointer" alt="logo"
+                        onClick={() => sectionChange(true,'inicio')}/>
     
             {/* Barra de busqueda */}
             <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />

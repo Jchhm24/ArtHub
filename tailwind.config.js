@@ -77,6 +77,9 @@ export default {
         'Paisajes': "url('../img/slider/Paisajes.png')",
         'Fan-Art': "url('../img/slider/FanArt.png')",
         'Ciencia-Ficcion': "url('../img/slider/CienciaFiccion.png')",
+        'Madera': "url('../img/Marcos/Madera.svg')",
+        'Metal': "url('../img/Marcos/Metal.svg')",
+        'Aluminio': "url('../img/Marcos/Aluminio.svg')",
       },
 
       minWidth: {

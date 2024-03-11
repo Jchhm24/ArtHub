@@ -4,8 +4,12 @@ import { ListTamanos } from "../Lists/ListTamanos"
 import { ListMarcos } from "../Lists/ListMarcos"
 import { ListFiltros } from "../Lists/ListFiltros"
 import { ListTiposImpresion } from "../Lists/ListTiposImpresion"
+import { changeTamaño } from "../Functions/Selects/changeTamaño"
+import { changeMarcos } from "../Functions/Selects/changeMarcos"
+import { changeFiltro } from "../Functions/Selects/changeFiltro"
+import { counter } from "../Functions/Calculations/counter"
 
-export const PreviewComponent = ({id, changePage, selectAll}) => {
+export const PreviewComponent = ({id, changePage}) => {
     const Id = id
 
     const publicacion = usePublicacion(Id)
@@ -13,7 +17,7 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
     const userData = localStorage.getItem('userData');
     const parseUserData = JSON.parse(userData);
 
-    // Camabiar los estilos de la barra lateral, su metodo esta de forma directa en los botones
+    // Cambiar los estilos de la barra lateral, su metodo esta de forma directa en los botones
     const [tool, setTool] = useState('Tamaños')
 
     // !Los states que estan juntos es por que van tomados de la mano para cambios de estilos y ajustes
@@ -22,42 +26,17 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
     const [tamanoSelect, setTamanoSelect] = useState(ListTamanos[0].label)
     const [tamaño, setTamaño] = useState('w-[275px]')
 
-    const changeTamaño = (label, id) =>{
-      setTamanoSelect(label)
-      setTamaño(ListTamanos.reduce((acc, x ) => x.id === id ? x.value : acc, ""))
-    }
-
     const [marcoSelect, setMarcoSelect] = useState(ListMarcos[0].label)
     const [marco, setMarco] = useState('');
-
-    const changeMarco = (label, id) => {
-        setMarcoSelect(label)
-        setMarco(ListMarcos.reduce((acc, x) => x.id === id ? x.value : acc, ""))
-      }
 
     const [filtroSelect, setFiltroSelect] = useState(ListFiltros[0].label)
     const [filtro, setFiltro] = useState('')
 
-    const changeFiltro = (label, id) => {
-      setFiltroSelect(label)
-      setFiltro(ListFiltros.reduce((acc, x) => x.id === id ? x.value : acc, ""));
-    }
-
+    // Su función esta directamente en el boton de la barra lateral de impresión  no esta en un archivo aparte
     const [impresionSelect, setImpresionSelect] = useState(ListTiposImpresion[0].label)
 
-    const [count, setcount] = useState(1)
-
-    const counter = (state) => {
-      // Sencillo, si state es true se aumenta y si es false se disminuy, lo hice asi solo usar un metodo
-      if(state){
-        setcount(count + 1)
-      }else{
-        setcount(count - 1)
-        if(count <= 1){
-          setcount(1)
-        }
-      }
-    }
+    // Incrementar la cantidad de piezas
+    const [count, setCount] = useState(1)
 
     //Para agregar al carrito
     const [carrito, setCarrito] = useState(JSON.parse(localStorage.getItem('carrito')) || [])
@@ -95,7 +74,7 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
     }
     
     // !Agregar un modal de aviso de que se agrego al carrito
-
+    
     return (
       <div className="mt-[30px] relative w-full flex flex-row place-content-around text-yellow-orange-300
         max-md:flex-col max-md:gap-5">
@@ -149,7 +128,7 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
                   <label className="text-xl font-medium">Cantidad de piezas: </label>
                   <div className="flex items-center">
                     
-                    <button onClick={() => counter(true)} className="rounded-l-lg bg-gold-sand-500 border-2 border-gold-sand-500">
+                    <button onClick={() => counter(true, count, setCount)} className="rounded-l-lg bg-gold-sand-500 border-2 border-gold-sand-500">
                       {/* Mas >>>>>> */}
                       <svg className="fill-yellow-orange-200" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M440-440H240q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h200v-200q0-17 11.5-28.5T480-760q17 0 28.5 11.5T520-720v200h200q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H520v200q0 17-11.5 28.5T480-200q-17 0-28.5-11.5T440-240v-200Z"/></svg>
                     </button>
@@ -158,7 +137,7 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
                         {count}
                       </span>
 
-                    <button onClick={() => counter(false)} className={`rounded-r-lg border-2 ${count > 1 ? 'bg-gold-sand-500 border-gold-sand-500' : 'border-gold-sand-700' }`}>
+                    <button onClick={() => counter(false, count, setCount)} className={`rounded-r-lg border-2 ${count > 1 ? 'bg-gold-sand-500 border-gold-sand-500' : 'border-gold-sand-700' }`}>
                       {/* Menos <<<<< */}
                       <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                         <path fill={count === 1 ? '#e9944e' : '#fdd28a'} d="M240-440q-17 0-28.5-11.5T200-480q0-17 11.5-28.5T240-520h480q17 0 28.5 11.5T760-480q0 17-11.5 28.5T720-440H240Z"/>
@@ -189,19 +168,19 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
                 <div className="bg-nile-blue-900 rounded-l-lg h-max w-min">
                   {tool === 'Tamaños' && ListTamanos.map(x => 
                                           <p key={x.id}
-                                            onClick={() => changeTamaño(x.label, x.id)} className={`${tamanoSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
+                                            onClick={() => changeTamaño(x.label, x.id, setTamanoSelect, setTamaño)} className={`${tamanoSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
                                               {x.label}
                                           </p>  
                                         )
                     || tool === 'Marcos' && ListMarcos.map(x => 
                                               <p key={x.id} 
-                                                onClick={() => changeMarco(x.label, x.id)} className={`${marcoSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
+                                                onClick={() => changeMarcos(x.label, x.id, setMarcoSelect, setMarco)} className={`${marcoSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
                                                   {x.label}
                                               </p>  
                                             )
                     || tool === 'Filtros' && ListFiltros.map(x => 
                                               <p key={x.id} 
-                                                onClick={() => changeFiltro(x.label, x.id)} className={`${filtroSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
+                                                onClick={() => changeFiltro(x.label, x.id, setFiltroSelect, setFiltro)} className={`${filtroSelect === x.label ? 'option-tool-select' : 'option-tool'}`}>
                                                   {x.label}
                                               </p>  
                                             )
@@ -241,7 +220,7 @@ export const PreviewComponent = ({id, changePage, selectAll}) => {
               <button onClick={() => changePage('inicio')} className="bg-nile-blue-800 p-[6px] hover:bg-nile-blue-900 rounded-lg outline-none">
                 <svg className="fill-yellow-orange-300 w-8 h-8 " xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M687-400H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760q17 0 28.5 11.5T340-720q0 17-11.5 28.5T300-680q-42 0-71 29t-29 71q0 42 29 71t71 29h387L572-596q-11-11-11.5-27.5T572-652q11-11 28-11t28 11l184 184q12 12 12 28t-12 28L628-228q-12 12-28 11.5T572-229q-11-12-11.5-28t11.5-28l115-115Z"/></svg>
               </button>
-          </section>
+            </section>
 
           </section>
       </div>

@@ -22,7 +22,7 @@ export const PreviewComponent = ({id, changePage}) => {
 
     // !Los states que estan juntos es por que van tomados de la mano para cambios de estilos y ajustes
     // !El primer State es para cambiar estilos y el segundo es para cambiar la imagen
-
+    // !Sus funciones para usar los useSatte estan en archivos aparte
     const [tamanoSelect, setTamanoSelect] = useState(ListTamanos[0].label)
     const [tamaño, setTamaño] = useState('w-[275px]')
 
@@ -74,7 +74,7 @@ export const PreviewComponent = ({id, changePage}) => {
     }
     
     // !Agregar un modal de aviso de que se agrego al carrito
-    
+
     return (
       <div className="mt-[30px] relative w-full flex flex-row place-content-around text-yellow-orange-300
         max-md:flex-col max-md:gap-5">

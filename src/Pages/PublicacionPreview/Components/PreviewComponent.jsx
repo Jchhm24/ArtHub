@@ -58,6 +58,7 @@ export const PreviewComponent = ({id, changePage}) => {
       }
       setCarrito(carritoAnterior => [... carritoAnterior, nuevoItem])
       setIdCarrito(idCarrito + 1)
+      alert('Se agrego al carrito correctamente')
     }
     // para actualizar el carrito
     useEffect(() => {

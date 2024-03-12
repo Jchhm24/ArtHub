@@ -111,7 +111,7 @@ export const PublicarComponent = ({changePage}) => {
           value={titulo} onChange={onInputChange} required ref={ref}/>
         
         <div className="flex flex-col">
-          <textarea cols="30" rows="10" name="descripcion" value={descripcion} onChange={onInputChange} required
+          <textarea cols="30" rows="10" name="descripcion" value={descripcion} maxLength="150" onChange={onInputChange} required
           className="input-login h-[85px] w-max resize-none" placeholder="Descripcion"></textarea>
           <label htmlFor="" className="text-base font-Red-Hat-Display text-yellow-orange-300">
             (Max 150 caracteres)

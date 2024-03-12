@@ -10,9 +10,10 @@ import { OptionTamañosComponent } from "./sections/BarraLateral/Components/opti
 import { OptionMarcosComponent } from "./sections/BarraLateral/Components/options/OptionMarcosComponent"
 import { OptionFiltrosComponent } from "./sections/BarraLateral/Components/options/OptionFiltrosComponent"
 import { OptionImpresionComponent } from "./sections/BarraLateral/Components/options/OptionImpresionComponent"
-import { InfoPublicacionComponent } from "./sections/BarraLateral/Components/InfoPublicacion/InfoPublicacionComponent"
-import { InfoPublicacionEditComponent } from "./sections/BarraLateral/Components/InfoPublicacion/InfoPublicacionEditComponent"
 import { ButtonsOptionComponent } from "./sections/ButtonsOptionComponent"
+import { InfoPublicacionEditComponent } from "./InfoPublicacion/InfoPublicacionEditComponent"
+import { InfoPublicacionComponent } from "./InfoPublicacion/InfoPublicacionComponent"
+
 
 export const PreviewComponent = ({id, changePage}) => {
     const publicacion = usePublicacion(id)

@@ -6,7 +6,7 @@ export const getImagenes = async (ids, searchTerm) => {
         // Filtra las imágenes basándote en las ids(categories) seleccionadas de los checkboxes
         if (ids && ids.length > 0) {
                 data = data.filter(imagen => {
-                        const categorias = imagen.categoria.split(',');
+                        const categorias = imagen.categoria.split(',').map(categoria => categoria.trim());
                         return categorias.some(categoria => ids.includes(categoria));
                 });
         }

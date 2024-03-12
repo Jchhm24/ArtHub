@@ -1,6 +1,6 @@
-import { ListCategorias } from "../../../../../../../Components/Filtros/ListCategorias"
 import { useState } from 'react'
-import { ButtonsOptionEditComponent } from "../../../ButtonsOptionEditComponent"
+import { ListCategorias } from '../../../../Components/Filtros/ListCategorias'
+import { ButtonsOptionEditComponent } from '../sections/ButtonsOptionEditComponent'
 
 export const InfoPublicacionEditComponent = ({publicacion, setEdit, id, changePage}) => {
 

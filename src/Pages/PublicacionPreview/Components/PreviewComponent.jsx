@@ -67,7 +67,6 @@ export const PreviewComponent = ({id, changePage}) => {
     useEffect(() => {
       localStorage.setItem('carrito', JSON.stringify(carrito))
       localStorage.setItem('idCarrito', idCarrito)
-      console.table(carrito)
     }, [carrito, idCarrito, count])
 
     const [edit, setEdit] = useState(false)
@@ -119,7 +118,7 @@ export const PreviewComponent = ({id, changePage}) => {
               }
             </article>
               
-            {/* Barra lateral de las opciones, solo aparece si la publicación no le pertenece al usuario logeado*/}
+            {/* Barra lateral de las opciones, desaparece si el modo editor esta activado*/}
             {edit ? null
                   :<section className=" flex flex-row">
                     <div className="bg-nile-blue-900 rounded-l-lg h-max w-min">

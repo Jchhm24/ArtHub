@@ -11,6 +11,7 @@ export const putUser = async (id, updateUser) => {
   .then(res => {
     if(res.ok){
         alert('Tus datos han sido actualizados')
+        // TODO:Configurar esto para actualizar los datos del usuario
         localStorage.removeItem('userData');
         getUpdateUser(id)
     }else{

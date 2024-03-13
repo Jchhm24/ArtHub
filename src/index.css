@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+   .dropdownPerfil{
+      @apply flex flex-row p-[6px] gap-1 cursor-pointer hover:text-gold-sand-300 fill-yellow-orange-300 hover:fill-gold-sand-300
+   }
+
    .input-login{
         @apply font-Comfortaa bg-inherit text-nile-blue-200 border-[2px] border-gold-sand-500 px-[6px] py-1 outline-none rounded-lg placeholder:text-gold-sand-200
         focus:bg-vulcan-950 focus:placeholder:text-nile-blue-200 focus:border-gold-sand-600 focus:text-nile-blue-200;

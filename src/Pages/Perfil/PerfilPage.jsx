@@ -2,7 +2,7 @@ import { useState } from "react"
 import { PerfilComponent } from "./Components/PerfilComponent"
 import { EditarPerfil } from "./EditarPerfil/EditarPerfil"
 
-export const PerfilPage = () => {
+export const PerfilPage = ({changePage, getImgId, setStatePage}) => {
 
   const [section, setSection] = useState('perfil')
   // Para que la información del usuario siempre este actualizada
@@ -19,7 +19,7 @@ export const PerfilPage = () => {
   }
   return (
     <>
-      {section === 'perfil' && <PerfilComponent changeSection={changeSection} userData={userData}/>
+      {section === 'perfil' && <PerfilComponent changeSection={changeSection} userData={userData} changePage={changePage} getImgId={getImgId} setStatePage={setStatePage}/>
                ||  'editar' && <EditarPerfil changeSection={changeSection} userData={userData} newDatesUser={newDatesUser}/>
       }
     </>

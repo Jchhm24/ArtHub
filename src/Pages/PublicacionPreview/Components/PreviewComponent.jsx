@@ -15,7 +15,7 @@ import { InfoPublicacionEditComponent } from "./InfoPublicacion/InfoPublicacionE
 import { InfoPublicacionComponent } from "./InfoPublicacion/InfoPublicacionComponent"
 import { postInteraction } from "../helper/postInteraction"
 
-export const PreviewComponent = ({id, changePage}) => {
+export const PreviewComponent = ({id, changePage, statePage}) => {
     const publicacion = usePublicacion(id)
 
     const userData = localStorage.getItem('userData');
@@ -79,7 +79,9 @@ export const PreviewComponent = ({id, changePage}) => {
     const actions = () =>{
       // !Desactivado por el momento
       // postInteraction(like, parseUserData.idUsuario, id)
-      changePage('inicio')
+      // TODO:Si statePage es true nos manda al inicio si no nos manda al perfil
+      statePage ? changePage('inicio') : changePage('perfil')
+      console.log(statePage)
     }
     
     return (

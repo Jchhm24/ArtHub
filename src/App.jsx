@@ -5,6 +5,7 @@ import { PublicarPage } from "./Pages/Publicar/PublicarPage";
 import { PreviewPage } from "./Pages/PublicacionPreview/PreviewPage";
 import { PerfilPage } from "./Pages/Perfil/PerfilPage";
 import { CarritoPage } from "./Pages/Carrito/CarritoPage";
+import { Dashboardpage } from "./Pages/Dashboard/Dashboardpage";
 
 export const App = () => {
   const [activeCheckboxes, setActiveCheckboxes] = useState([]);
@@ -29,13 +30,16 @@ export const App = () => {
       <NavComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} changePage={changePage}/>
  
       {
+        // Accesos directos del nav
         page === 'inicio' && <InicioPage activeCheckboxes={activeCheckboxes} setActiveCheckboxes={setActiveCheckboxes} searchTerm={searchTerm} changePage={changePage} getImgId={getImgId}/>
-        || page ===  'publicar' && <PublicarPage changePage={changePage}/>
-        || page === 'preview' && <PreviewPage id={idPublicacion} changePage={changePage}/>
-        || page === 'perfil' && <PerfilPage/>
         || page === 'carrito' && <CarritoPage/>
+        || page ===  'publicar' && <PublicarPage changePage={changePage}/>
+        // Vista de la publicacion
+        || page === 'preview' && <PreviewPage id={idPublicacion} changePage={changePage}/>
+        //Opciones del dropwdown del perfil
+        || page === 'perfil' && <PerfilPage/>
+        || page === 'dashboard' && <Dashboardpage changePage={changePage}/>
       }
-
 
       {/* <p className="text-white">Esto es una prueba</p> */}
     </>

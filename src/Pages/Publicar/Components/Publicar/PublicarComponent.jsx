@@ -6,27 +6,27 @@ import { useForm } from "../../hooks/useForm"
 export const PublicarComponent = ({changePage}) => {
     
   const onDrop = useCallback(acceptedFiles => {
-    const file = acceptedFiles[0];
-    const reader = new FileReader();
+    const file = acceptedFiles[0]
+    const reader = new FileReader()
 
     reader.onloadend = () => {
-      setBase64Image(reader.result); // Guarda la imagen en base64 en el estado
-    };
+      setBase64Image(reader.result) // Guarda la imagen en base64 en el estado
+    }
 
-    reader.readAsDataURL(file);
-  }, []);
+    reader.readAsDataURL(file)
+  }, [])
 
-  const [base64Image, setBase64Image] = useState(null); // Nuevo estado para la imagen en base64
+  const [base64Image, setBase64Image] = useState(null) // Nuevo estado para la imagen en base64
   
   const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop})
 
   // Para saber los checks que se seleccionaron
   const [categorias, setCategorias] = useState(
     ListCategorias.reduce((acc, categoria) => {
-      acc[categoria.categoria] = false;
-      return acc;
+      acc[categoria.categoria] = false
+      return acc
     }, { NSFW: false }) // Agregar NSFW al estado inicial
-  );
+  )
 
   // Manejador para el cambio de estado de las categorías
   const handleCategoriaChange = (event) => {
@@ -44,8 +44,6 @@ export const PublicarComponent = ({changePage}) => {
 
   const categoriasSeleccionadas = Object.keys(categorias).filter( categoria => categorias[categoria])
 
-  console.log(categoriasSeleccionadas)
-
   const publicForm ={
     "idArtista":user.idUsuario,
     "titulo": '',
@@ -58,48 +56,50 @@ export const PublicarComponent = ({changePage}) => {
   const {formState, onInputChange, resetForm} = useForm(publicForm)
   const {idArtista, titulo, descripcion, precio, archivo, categoria} = formState
 
-  const handleSubmit = async (e) =>{
-    e.preventDefault()
-    if(acceptedFiles[0] && categoriasSeleccionadas.length > 0){
-      const categoriasString = categoriasSeleccionadas.join(', ')
-    
-        const finalFormState = {
-        ...formState,
-        archivo: base64Image,
-        categoria: categoriasString
-      }
-    
-      console.log(finalFormState)
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  if (acceptedFiles[0] && categoriasSeleccionadas.length > 0) {
+    const categoriasString = categoriasSeleccionadas.join(', ')
 
-      fetch('https://arthub.somee.com/api/Publicacion', {
-            credentials: 'include',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(finalFormState)
-      })
-      .then(response => response.json())
-      .then(() => {
-        alert('Publicado de exitosamente')
-        resetForm()
-        changePage('inicio')
-      })
-      .catch(error =>{
-        console.log(error)
+    // Crear una instancia de FormData
+    let formData = new FormData()
 
-        alert('Error al hacer la publicación. Por favor intente de nuevo.')
+    // Agregar datos al formData
+    formData.append('idArtista', user.idUsuario)
+    formData.append('titulo', titulo)
+    formData.append('descripcion', descripcion)
+    formData.append('precio', precio)
+    formData.append('archivo', acceptedFiles[0]) // Agregar el archivo directamente
+    formData.append('categoria', categoriasString)
+
+    try {
+      const response = await fetch('https://arthub.somee.com/api/Publicacion', {
+        credentials: 'include',
+        method: 'POST',
+        body: formData // Pasar formData como el cuerpo de la solicitud
       })
-    }else{
-      if(!acceptedFiles[0]){
-        alert('No se ha seleccionado una imagen')
+
+      if (!response.ok) {
+        throw new Error('Error al hacer la publicación')
       }
-      if(categoriasSeleccionadas.length === 0){
-        alert('No se ha seleccionado ninguna categoría')
-      }
+
+      await response.json()
+      alert('Publicado de exitosamente')
+      resetForm()
+      changePage('inicio')
+    } catch (error) {
+      console.log(error)
+      alert('Error al hacer la publicación. Por favor intente de nuevo.')
+    }
+  } else {
+    if (!acceptedFiles[0]) {
+      alert('No se ha seleccionado una imagen')
+    }
+    if (categoriasSeleccionadas.length === 0) {
+      alert('No se ha seleccionado ninguna categoría')
     }
   }
+}
 
   const ref = useRef()
 
@@ -149,7 +149,7 @@ export const PublicarComponent = ({changePage}) => {
                 />
                 <label
                   htmlFor={x.categoria}
-                  className="px-2 py-1 border-2 border-gold-sand-500 rounded-lg
+                  className="cursor-pointer px-2 py-1 border-2 border-gold-sand-500 rounded-lg
                   peer-checked:bg-gold-sand-500"
                 >
                   {x.categoria}

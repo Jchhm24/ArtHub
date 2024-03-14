@@ -30,7 +30,7 @@ export const App = () => {
 
   return (
     <>
-      <NavComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} changePage={changePage}/>
+      <NavComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} changePage={changePage} setStatePage={setStatePage}/>
  
       {
         // Accesos directos del nav

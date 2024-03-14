@@ -3,7 +3,7 @@ import { LoginModalComponent } from "../LoginModal/LoginModalComponent"
 import { SearchComponent } from "../Search/SearchComponent"
 import { CuentaDropwnComponent } from "../CuentaDropdown/CuentaDropwnComponent"
 
-export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
+export const NavComponent = ({searchTerm, setSearchTerm, changePage, setStatePage}) => {
 
     const [openModal, setOpenModal] = useState(false)
     // para abrir iniciar sesion de forma directa, si esta en false no se abre de forma directa
@@ -13,6 +13,7 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
         setOpenModal(state)
         setOpenSesion(stateSesion)
     }
+
     // Para el dropdown de la cuenta
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -22,6 +23,7 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
     const sectionChange = (section, page) =>{
         changePage(section)
         setSection(section)
+        setStatePage(section)
         changePage(page)
     }
 

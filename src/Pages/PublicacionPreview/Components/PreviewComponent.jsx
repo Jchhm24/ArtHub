@@ -77,7 +77,8 @@ export const PreviewComponent = ({id, changePage}) => {
 
     // Este metodo se encarga de enviar la interacción que hizo el usuario y nos regresa a la pagina de inicio
     const actions = () =>{
-      postInteraction(like, parseUserData.idUsuario, id)
+      // !Desactivado por el momento
+      // postInteraction(like, parseUserData.idUsuario, id)
       changePage('inicio')
     }
     

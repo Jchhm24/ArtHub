@@ -4,7 +4,7 @@ import { submitUser } from "./helpers/submitUser"
 import { useGetForm } from "./hooks/userGetForm"
 import { getUser } from "./helpers/getUser"
 
-export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => {
+export const LoginModalComponent = ({opendModal, openSesion, closeModal, setIsLoggedIn}) => {
     
     const focusRef = useRef()
     const focusRef2 = useRef()
@@ -70,6 +70,7 @@ export const LoginModalComponent = ({opendModal, closeModal, setIsLoggedIn}) => 
 
     useEffect(() => {
         focusRef.current.focus()
+        openSesion && setIsMoved(true)
     }, [])
 
   return (

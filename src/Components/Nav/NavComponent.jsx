@@ -6,9 +6,12 @@ import { CuentaDropwnComponent } from "../CuentaDropdown/CuentaDropwnComponent"
 export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
 
     const [openModal, setOpenModal] = useState(false)
+    // para abrir iniciar sesion de forma directa, si esta en false no se abre de forma directa
+    const [openSesion, setOpenSesion] = useState(false)
 
-    const stateModal=(state)=>{
+    const stateModal=(state, stateSesion)=>{
         setOpenModal(state)
+        setOpenSesion(stateSesion)
     }
     // Para el dropdown de la cuenta
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -64,18 +67,18 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage}) => {
                             <CuentaDropwnComponent changePage={changePage}/>
                         </>
                         :<div className="flex flex-row">
-                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
+                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true, false)}>
                                 Registrarse
                             </button>
                             <span className="bg-yellow-orange-300 max-h w-[2px] rounded-full"></span>
-                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true)}>
+                            <button className="py-1 px-2 outline-none" onClick={() => stateModal(true, true)}>
                                 Iniciar sesión
                             </button>
                         </div>
             }
         </nav>
 
-        {openModal && <LoginModalComponent opendModal={openModal} closeModal={() => stateModal(false)} setIsLoggedIn={setIsLoggedIn}/>}
+        {openModal && <LoginModalComponent opendModal={openModal} openSesion={openSesion} closeModal={() => stateModal(false)} setIsLoggedIn={setIsLoggedIn}/>}
    </>
   )
 }

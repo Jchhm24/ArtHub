@@ -1,5 +1,3 @@
-// import { Carousel } from "../Carousel/Carousel"
-import { useState } from "react"
 import { useImagenes } from "./hooks/useImagenes"
 
 export const PublicacionesComponent = ({activeCheckboxes, searchTerm, changePage, getImgId}) => {
@@ -13,9 +11,6 @@ export const PublicacionesComponent = ({activeCheckboxes, searchTerm, changePage
 
     return (
         <>  
-            {/* <Carousel /> */}
-            {/*La idea del slider queda suspendida */}
-
             <div className="flex flex-col justify-center items-center my-2.5">
                 <div className="columns-5 max-md:columns-3 max-[300px]:columns-2 ">
                     {imagenes.map(x => <img key={x.idPublicacion} src={x.archivo} alt={x.titulo} value={x.idPublicacion} className="card-imagen-publicacion"

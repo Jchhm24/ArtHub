@@ -13,7 +13,7 @@ import { OptionImpresionComponent } from "./sections/BarraLateral/Components/opt
 import { ButtonsOptionComponent } from "./sections/ButtonsOptionComponent"
 import { InfoPublicacionEditComponent } from "./InfoPublicacion/InfoPublicacionEditComponent"
 import { InfoPublicacionComponent } from "./InfoPublicacion/InfoPublicacionComponent"
-
+import { postInteraction } from "../helper/postInteraction"
 
 export const PreviewComponent = ({id, changePage}) => {
     const publicacion = usePublicacion(id)
@@ -71,6 +71,15 @@ export const PreviewComponent = ({id, changePage}) => {
     }, [carrito, idCarrito, count])
 
     const [edit, setEdit] = useState(false)
+
+    // Para poder dar likes
+    const [like, setLike] = useState(false)
+
+    // Este metodo se encarga de enviar la interacción que hizo el usuario y nos regresa a la pagina de inicio
+    const actions = () =>{
+      postInteraction(like, parseUserData.idUsuario, id)
+      changePage('inicio')
+    }
     
     return (
       <div className="mt-[30px] relative w-full flex flex-row place-content-around text-yellow-orange-300
@@ -85,7 +94,7 @@ export const PreviewComponent = ({id, changePage}) => {
             </div>
               {/* Para ver el nombre del artista y dar like solo sale si la publicación del usuario es suyo */}
               {parseUserData.username !== publicacion.nombreArtista &&
-                <LikesSectionComponent parseUserData={parseUserData} publicacion={publicacion}/>
+                <LikesSectionComponent parseUserData={parseUserData} publicacion={publicacion} setLike={setLike}/>
               }
             </div>
           </section>
@@ -154,8 +163,9 @@ export const PreviewComponent = ({id, changePage}) => {
                   </section>
             }
 
+            {/* El boton no solo se encarga de retroceder, si no de que tambien se encarga de enviar la interacción de vista */}
             <section className="flex flex-row w-min h-min max-md:absolute max-md:top-0 max-md:right-5">
-              <button onClick={() => changePage('inicio')} className="bg-nile-blue-800 p-[6px] hover:bg-nile-blue-900 rounded-lg outline-none">
+              <button onClick={() => actions()} className="bg-nile-blue-800 p-[6px] hover:bg-nile-blue-900 rounded-lg outline-none">
                 <svg className="fill-yellow-orange-300 w-8 h-8 " xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M687-400H300q-75 0-127.5-52.5T120-580q0-75 52.5-127.5T300-760q17 0 28.5 11.5T340-720q0 17-11.5 28.5T300-680q-42 0-71 29t-29 71q0 42 29 71t71 29h387L572-596q-11-11-11.5-27.5T572-652q11-11 28-11t28 11l184 184q12 12 12 28t-12 28L628-228q-12 12-28 11.5T572-229q-11-12-11.5-28t11.5-28l115-115Z"/></svg>
               </button>
             </section>

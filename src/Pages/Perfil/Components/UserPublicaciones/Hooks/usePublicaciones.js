@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { getPublicaciones } from "../Helpers/getPublicaciones"
+import { getPublicacionesUser } from "../Helpers/getPublicacionesUser"
 
 export const usePublicaciones = () => {
    const [publicacion, setPublicacion] = useState([])
 
    useEffect(() => {
      const fetchPublicaciones = async () =>{
-        const data =await getPublicaciones()
+        const userId = JSON.parse(localStorage.getItem('userData')).idUsuario
+        const data = await getPublicacionesUser(userId)
         
         setPublicacion(data)
      }

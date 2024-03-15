@@ -4,8 +4,6 @@ export const UserPublicacionesComponent = ({changePage, getImgId, setStatePage})
 
     const publicacion = usePublicaciones()
 
-    const userId = JSON.parse(localStorage.getItem('userData'))
-
     const viewImg = (id) =>{
         getImgId(id)
         // Actualizamos el setStatePage a false para que nos regrese a la pagina de editar perfil cuando salimos de ver la publicacion
@@ -22,7 +20,6 @@ export const UserPublicacionesComponent = ({changePage, getImgId, setStatePage})
           <div className="flex flex-col justify-center items-center my-2.5">
               <div className="columns-4 max-md:columns-3 max-[300px]:columns-2 ">
                 {publicacion.map(x => 
-                    userId.idUsuario === x.idArtista &&
                     <img key={x.idPublicacion} src={x.archivo} id={x.idPublicacion} alt={x.titulo} className="card-imagen-publicacion"
                         onClick={() => viewImg(x.idPublicacion)}/>
                     

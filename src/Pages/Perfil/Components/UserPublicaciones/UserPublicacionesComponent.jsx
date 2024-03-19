@@ -1,8 +1,8 @@
-import { usePublicaciones } from "./Hooks/usePublicaciones"
+import { usePublicacionesUser } from "./Hooks/usePublicacionesUser"
 
 export const UserPublicacionesComponent = ({changePage, getImgId, setStatePage}) => {
 
-    const publicacion = usePublicaciones()
+    const publicacion =usePublicacionesUser ()
 
     const viewImg = (id) =>{
         getImgId(id)

@@ -1,5 +1,9 @@
+import { TitlesComponent } from "./Components/TitlesComponent"
+
 export const Dashboardpage = () => {
   return (
-    <div>Dashboardpage</div>
+    <div className="mt-[30px] mx-[30px]">
+      <TitlesComponent/>
+    </div>
   )
 }

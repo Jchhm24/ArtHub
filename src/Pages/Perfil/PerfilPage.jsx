@@ -8,7 +8,7 @@ export const PerfilPage = ({changePage, getImgId, setStatePage}) => {
   // Para que la información del usuario siempre este actualizada
   const [userData, setUserDaauserData] = useState(JSON.parse(localStorage.getItem('userData')) || [])
 
-  // Funciín para actualizar los datos del usuario
+  // Función para actualizar los datos del usuario
   const newDatesUser = (newDates) =>{
     setUserDaauserData(newDates)
     localStorage.setItem('userData', JSON.stringify(newDates))

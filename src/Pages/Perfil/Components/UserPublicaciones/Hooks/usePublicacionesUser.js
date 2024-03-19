@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getPublicacionesUser } from "../Helpers/getPublicacionesUser"
 
-export const usePublicaciones = () => {
+export const usePublicacionesUser = () => {
    const [publicacion, setPublicacion] = useState([])
 
    useEffect(() => {

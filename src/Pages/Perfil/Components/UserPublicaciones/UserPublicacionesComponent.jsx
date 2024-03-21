@@ -6,8 +6,8 @@ export const UserPublicacionesComponent = ({changePage, getImgId, setStatePage})
 
     const viewImg = (id) =>{
         getImgId(id)
-        // Actualizamos el setStatePage a false para que nos regrese a la pagina de editar perfil cuando salimos de ver la publicacion
-        setStatePage(false)
+        // Actualizamos el setStatePage a 2 para que nos regrese a la pagina de editar perfil cuando salimos de ver la publicacion
+        setStatePage(2)
         changePage('preview')
     }
     return (
@@ -26,7 +26,6 @@ export const UserPublicacionesComponent = ({changePage, getImgId, setStatePage})
                 )}
               </div>
           </div>
-
       </div>
     )
 }

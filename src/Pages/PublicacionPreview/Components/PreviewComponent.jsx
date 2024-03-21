@@ -15,7 +15,7 @@ import { InfoPublicacionEditComponent } from "./InfoPublicacion/InfoPublicacionE
 import { InfoPublicacionComponent } from "./InfoPublicacion/InfoPublicacionComponent"
 import { postInteraction } from "../helper/postInteraction"
 
-export const PreviewComponent = ({id, changePage, statePage}) => {
+export const PreviewComponent = ({id, changePage, statePage, setUserId}) => {
     const publicacion = usePublicacion(id)
 
     const userData = localStorage.getItem('userData');
@@ -80,7 +80,9 @@ export const PreviewComponent = ({id, changePage, statePage}) => {
       // !Desactivado por el momento
       // postInteraction(like, parseUserData.idUsuario, id)
       // TODO:Si statePage es true nos manda al inicio si no nos manda al perfil
-      statePage ? changePage('inicio') : changePage('perfil')
+      statePage === 1 && changePage('inicio') 
+      || statePage === 2 && changePage('perfil')
+      || statePage === 3 && changePage('perfilUser'), setUserId(publicacion.idArtista)
       console.log(statePage)
     }
     
@@ -97,7 +99,7 @@ export const PreviewComponent = ({id, changePage, statePage}) => {
             </div>
               {/* Para ver el nombre del artista y dar like solo sale si la publicación del usuario es suyo */}
               {parseUserData.username !== publicacion.nombreArtista &&
-                <LikesSectionComponent parseUserData={parseUserData} publicacion={publicacion} setLike={setLike}/>
+                <LikesSectionComponent parseUserData={parseUserData} publicacion={publicacion} setLike={setLike} setUserId={setUserId} changePage={changePage}/>
               }
             </div>
           </section>

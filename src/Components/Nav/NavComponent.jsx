@@ -23,7 +23,7 @@ export const NavComponent = ({searchTerm, setSearchTerm, changePage, setStatePag
     const sectionChange = (section, page) =>{
         changePage(section)
         setSection(section)
-        setStatePage(section)
+        setStatePage(1)
         changePage(page)
     }
 

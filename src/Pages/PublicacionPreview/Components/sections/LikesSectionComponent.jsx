@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const LikesSectionComponent = ({parseUserData, publicacion, setLike}) => {
+export const LikesSectionComponent = ({parseUserData, publicacion, setLike, setUserId, changePage}) => {
   
   const [likeState, setlikeState] = useState(false)
   
@@ -9,9 +9,14 @@ export const LikesSectionComponent = ({parseUserData, publicacion, setLike}) => 
     setLike(state)
   }
 
+  const visitProfile = () =>{
+    setUserId(publicacion.idArtista)
+    changePage('perfilUser')
+  }
+
   return (
     <div className="flex items-center place-content-between">
-      <div className="flex flex-row items-center gap-1">
+      <div className="flex flex-row items-center gap-1 cursor-pointer" onClick={visitProfile}>
         <img src={parseUserData.fotoPerfil} alt="user-example" className="rounded-full h-[30px] w-[30px]"/>
         <h2 className="font-Red-Hat-Display text-base">
           {publicacion.nombreArtista}

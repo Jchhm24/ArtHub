@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { CarritoOptions } from "./Components/CarritoOptions/CarritoOptions"
+import { PagoModalComponent } from "./Components/PagoModal/PagoModalComponent"
+
 
 export const CarritoPage = () => {
 
@@ -14,10 +16,15 @@ export const CarritoPage = () => {
       // Ahora actualizamos el localStorage del carrito, le tenemos que pasar al carrito actualizado
       localStorage.setItem('carrito', JSON.stringify(newCarrito))
     }
+    // Para poder acceder al carrito
+    const [modalState, seTmodalState] = useState(false)
     
     return (
       <>
-        <CarritoOptions carrito={carrito} updateCarrito={updateCarrito} userId={userId}/>
+        <CarritoOptions carrito={carrito} updateCarrito={updateCarrito} userId={userId} seTmodalState={seTmodalState}/>
+        {modalState &&
+          <PagoModalComponent modalState={modalState} closeModal={()=> seTmodalState(false)}/>
+        }
       </>
     )
 }

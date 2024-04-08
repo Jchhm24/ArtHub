@@ -6,6 +6,7 @@ import { getUpdateUser } from "../../helpers/getUser"
 import { FormDatosPersonales } from "../Forms/FormDatosPersonales"
 import { FormDatosCuenta } from "../Forms/FormDatosCuenta"
 import { FormFotoPerfil } from "../Forms/FormFotoPerfil"
+import { putSenUser } from "../../helpers/putSenUser"
 
 export const BarSideSections = ({changeSection}) => {
 
@@ -20,8 +21,6 @@ export const BarSideSections = ({changeSection}) => {
 
     // Abrir modal 
     const [modal, setModal] = useState(false)
-    // para enviar los datos 
-    const [pass, setPass] = useState()
 
     const confirmModal = (state) => {
         setModal(state)
@@ -31,36 +30,29 @@ export const BarSideSections = ({changeSection}) => {
 
     const id = user.idUsuario
 
-    let fechaParaHTML = new Date(user.fechaNacimiento).toISOString().split('T')[0]
-
-    const Confirm = async (pass) =>{
-        setPass(pass)
-        if(pass){
-            let dataToSend = {...formState, fechaNacimiento: new Date(formState.fechaNacimiento).toISOString()};
-            await putUser(id, dataToSend)
-            await getUpdateUser(id)
-            console.log(localStorage.getItem('userData'))
-        }
-    }
-
     const SubmitUser = (e) => {
         e.preventDefault()
-        confirmModal(true)
+        putUser(id, formState, user, confirmModal)
     }
 
+    // Datos que usamos para el formulario
     const updateUser ={
       "fotoPerfil": user.fotoPerfil, 
       "nombre": user.nombre,
       "apellido": user.apellido,
       "username": user.username,
-      "fechaNacimiento": fechaParaHTML,
       "email": user.email,
       "contrasena": user.contrasena,
       "idRol": 1
     }
+    
+    const closeModal =(pass) =>{
+      setModal(false)
+      putSenUser(id, formState,pass)
+    }
 
     const {formState, onInputChange} = userForm(updateUser)
-    const {fotoPerfil,nombre, apellido, username, fechaNacimiento,email, contrasena, idRol} = formState
+    const {fotoPerfil,nombre, apellido, username,email} = formState
 
     return (
       <>  
@@ -100,7 +92,7 @@ export const BarSideSections = ({changeSection}) => {
                 {/* forms, el forms apesar de que no se muestra por secciones,siempre se envia todo */}
                 <form onSubmit={SubmitUser} className="rounded-lg bg-nile-blue-950 p-5 text-yellow-orange-300 flex flex-col justify-center gap-5">
                     {/* Formulario de datos de datos personales, datos cuenta y cambiar todo de perfil */}
-                    {formSection === 'personales' && <FormDatosPersonales nombre={nombre} apellido={apellido} fechaNacimiento={fechaNacimiento} onInputChange={onInputChange}/>
+                    {formSection === 'personales' && <FormDatosPersonales nombre={nombre} apellido={apellido} onInputChange={onInputChange}/>
                     || formSection === 'cuenta' && <FormDatosCuenta email={email} username={username} onInputChange={onInputChange}/>
                     || formSection === 'foto' && <FormFotoPerfil fotoPerfil={fotoPerfil}/>
                     }                  
@@ -114,7 +106,7 @@ export const BarSideSections = ({changeSection}) => {
             </div>
         </div>
 
-        {modal && <ModalConfirmacionComponent openModal={modal} closeModal={() => setModal(false)} confirm={Confirm}/>}
+        {modal && <ModalConfirmacionComponent openModal={modal} closeModal={closeModal} cancel={() => setModal(false)}/>}
       </>
     )
 }

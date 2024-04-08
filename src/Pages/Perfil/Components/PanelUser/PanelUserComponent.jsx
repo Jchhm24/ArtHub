@@ -1,4 +1,9 @@
+import { useEffect } from "react"
+
 export const PanelUserComponent = ({changeSection, userData}) => {
+
+    useEffect(() => {
+    },[userData])
 
     return (
       <div className="flex justify-center h-min max-md:w-full max-md:my-[30px]">

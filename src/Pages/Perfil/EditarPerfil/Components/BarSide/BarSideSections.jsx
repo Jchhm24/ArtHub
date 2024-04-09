@@ -2,7 +2,6 @@ import { useState } from "react"
 import { userForm } from "../../hooks/userForm"
 import { ModalConfirmacionComponent } from "../ModalConfirmacion/ModalConfirmacionComponent"
 import { putUser } from "../../helpers/putUser"
-import { getUpdateUser } from "../../helpers/getUser"
 import { FormDatosPersonales } from "../Forms/FormDatosPersonales"
 import { FormDatosCuenta } from "../Forms/FormDatosCuenta"
 import { FormFotoPerfil } from "../Forms/FormFotoPerfil"
@@ -94,7 +93,7 @@ export const BarSideSections = ({changeSection}) => {
                     {/* Formulario de datos de datos personales, datos cuenta y cambiar todo de perfil */}
                     {formSection === 'personales' && <FormDatosPersonales nombre={nombre} apellido={apellido} onInputChange={onInputChange}/>
                     || formSection === 'cuenta' && <FormDatosCuenta email={email} username={username} onInputChange={onInputChange}/>
-                    || formSection === 'foto' && <FormFotoPerfil fotoPerfil={fotoPerfil}/>
+                    || formSection === 'foto' && <FormFotoPerfil fotoPerfil={fotoPerfil} onInputChange={onInputChange} />
                     }                  
                     <div className="flex justify-center ">
                         <button className="SlideBar-button">

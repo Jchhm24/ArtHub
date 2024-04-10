@@ -1,31 +1,53 @@
-import { useInteraccionesByPublicaciones } from '../../../Perfil/Components/UserPublicaciones/Hooks/useInteraccionesByPublicaciones'
-import { usePublicacionesUser } from '../../../Perfil/Components/UserPublicaciones/Hooks/usePublicacionesUser'
+import { useEffect, useState } from "react"
 
-export const CardDahsboard = () => {
+export const CardDahsboard = ({publicaciones ,setTotalVentas}) => {
 
-    const publicaciones = usePublicacionesUser()
-    const idsPublicaciones = publicaciones.map(x => x.idPublicacion)
-    const interacciones = useInteraccionesByPublicaciones(idsPublicaciones)
+    const [ventas, setVentas] = useState([]);
 
-    console.log(publicaciones)
+    useEffect(() => {
+        // Generar un número aleatorio para las ventas para cada publicación
+        const nuevasVentas = publicaciones.map(() => Math.floor(Math.random() * (12 - 8 + 1)) + 8);
+        setVentas(nuevasVentas);
+    }, [publicaciones]);
+
+    useEffect(() => {
+        // Calcular el total de ventas
+        let totalVentas = 0;
+        for (let i = 0; i < publicaciones.length; i++) {
+            totalVentas += ventas[i] * publicaciones[i].precio;
+        }
+        setTotalVentas(totalVentas);
+    }, [ventas, publicaciones, setTotalVentas]);
 
     return (
       <div>    
-          <div className="flex flex-col gap-5 justify-center w-max">
-              {publicaciones.map(x => 
-                <div key={x.idPublicacion}
+          <div className="flex flex-col gap-5 justify-center w-max max-md:w-full">
+              {publicaciones.map((x, index) => {
+                const likes = Math.floor(Math.random() * (500 - 100 + 1)) + 100;
+
+                // Usar el número aleatorio para las ventas que se generó anteriormente
+                const total = ventas[index] ? ventas[index] * x.precio : 0;
+
+                return(
+                    <div key={x.idPublicacion}
                     className=' bg-nile-blue-950 rounded-lg p-2.5 flex flex-row gap-2 justify-center relative font-Red-Hat-Display text-yellow-orange-300 h-min'
                 >
                     {/* Para renderizar la imagen */}
-                    <section className='flex items-center'>
+                    <section className='flex items-center max-md:flex-col'>
                         <div className="p-2 rounded-lg bg-gold-sand-600 w-max h-max">
                             <img src={x.archivo} id={x.idPublicacion} alt={x.titulo} className=" w-[200px] rounded-lg"/>                    
-                        </div>  
+                        </div>
+                        <div className=" hidden max-md:flex flex-col items-center">
+                            <h2 className="text-xl font-semibold break-words">{x.titulo}</h2>
+                            <p>
+                                Likes: {likes}
+                            </p>
+                        </div>
                     </section>
                     {/* Separador */}                   
-                    <span className="bg-yellow-orange-300 self-stretch w-1 mx-2 rounded-lg"></span>    
+                    <span className="bg-yellow-orange-300 self-stretch w-1 mx-2 rounded-lg max-md:hidden"></span>    
                     {/* Para mostrar la informacion */}
-                    <article className=' w-[200px] flex flex-col gap-2.5'>
+                    <article className=' w-[200px] flex flex-col gap-2.5 max-md:hidden'>
                         <h1 className='font-bold text-2xl w-full text-center'>
                             Información:
                         </h1>
@@ -35,16 +57,14 @@ export const CardDahsboard = () => {
                         </div>
 
                         <div>
-                            {interacciones && 
-                                <p>Likes: {interacciones.reduce((total, y) => y.idPublicacion === x.idPublicacion && y.like === true ? total + 1 : total <= 0 ? 0 : total - 1, 0)} </p>                    
-                            }  
+                            Likes: {likes}
                         </div>
 
                     </article>  
 
-                    <span className="bg-yellow-orange-300 self-stretch w-1 mx-2 rounded-lg"></span>    
+                    <span className="bg-yellow-orange-300 self-stretch w-1 mx-2 rounded-lg max-md:hidden"></span>    
 
-                    <section className='h-full'>
+                    <section className='h-full max-md:hidden'>
                         <h1 className='font-bold text-2xl w-full text-center'>
                             Categorias:
                         </h1>
@@ -56,17 +76,18 @@ export const CardDahsboard = () => {
                     </section>
 
                     <span className="bg-yellow-orange-300 self-stretch w-1 mx-2 rounded-lg"></span>
-                    <article className='flex flex-col'>
+                    <article className='flex flex-col gap-1'>
                         <h1 className='font-bold text-2xl w-full text-center'>
                             Ventas:
                         </h1>
                         <div className='text-lg'>
-                            <p>Precio: ${x.precio} MX</p>
-                            <p>PZ vendidas: 0 </p>
-                            <p>Total: $ 0 MX</p>
+                            <p>Precio: $ {x.precio} MX</p>
+                            <p>PZ vendidas: {ventas[index] ? ventas[index] : 0} pz.</p>
+                            <p>Total: $ {total} MX</p>
                         </div>
                     </article>
-                </div>     
+                </div>  
+              )}   
               )}
           </div>
       </div>
